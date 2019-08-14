@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import logo from './logo.svg'
-import { Layout, Breadcrumb } from 'antd'
+import { Layout } from 'antd'
 import RouterView from './router/Router'
 import UIComponents from './components/'
 
@@ -15,10 +15,7 @@ class App extends React.Component {
         <div className="App">
           <Layout className="layout" style={{ minHeight: '100vh' }}>
             <AppHeader />
-            <Content style={{ padding: '0 50px', marginTop: 64 }}>
-              <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>App</Breadcrumb.Item>
-              </Breadcrumb>
+            <Content style={{ padding: '0 50px', marginTop: 80 }}>
               <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>
                 <RouterView />
                 <img src={logo} className="app-logo" alt="logo" />
