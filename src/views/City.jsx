@@ -1,5 +1,5 @@
-import React from 'react';
-import { Divider } from 'antd';
+import React from 'react'
+import { Divider } from 'antd'
 import logo from '../assets/img/logo.svg'
 
 class City extends React.Component {
@@ -10,8 +10,8 @@ class City extends React.Component {
         <Divider />
         <img src={logo} className="app-logo" alt="logo" />
       </div>
-    );
+    )
   }
 }
 
-export default City;
+export default City

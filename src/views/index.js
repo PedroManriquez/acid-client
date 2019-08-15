@@ -1,7 +1,7 @@
-import Weather from './Weather';
-import City from './City';
+import Weather from './Weather'
+import City from './City'
 
 export default {
   Weather,
   City
-};
+}
