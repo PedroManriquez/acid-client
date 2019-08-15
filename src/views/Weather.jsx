@@ -10,22 +10,28 @@ class Weather extends React.Component {
       ws_url: 'http://localhost:3500',
       cities: []
     }
+    this.loadData = this.loadData.bind(this)
   }
 
   componentDidMount() {
     const socket = socketIO(this.state.ws_url)
-    this.loadData()
-      .then(response => {
-        console.log(response)
-        this.setState({ cities: response.data.body })
-      })
+    this.loadData() // load API data
     socket.on('reload', message => {
       console.log('message from hell')
     })
   }
 
   loadData() {
-    return Axios.get('http://localhost:3500/cities')
+    Axios.get('http://localhost:3500/cities')
+      .then(response => {
+        console.log(response)
+        this.setState({ cities: response.data.body })
+      })
+      .catch(err => {
+        setTimeout(() => {
+          this.loadData()
+        }, 1000 * 2)
+      })
   }
 
   render() {
