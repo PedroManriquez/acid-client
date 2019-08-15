@@ -1,10 +1,12 @@
-import React from 'react';
-import { Divider, Row, Col, Card } from 'antd';
+import React from 'react'
+import { Divider, Row, Col, Card } from 'antd'
+import socketIO from 'socket.io-client'
 
 class Weather extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      ws_url: 'http://localhost:3500',
       cities: [
         {
           name: 'Santiago',
@@ -52,6 +54,14 @@ class Weather extends React.Component {
       ]
     }
   }
+
+  componentDidMount () {
+    const socket = socketIO(this.state.ws_url)
+    socket.on('reload', message => {
+      console.log('message from hell')
+    })
+  }
+
   render() {
     return (
       <div>
@@ -64,7 +74,7 @@ class Weather extends React.Component {
                 <Card title={city.name} extra={city.country_code} style={{ width: '100%' }}>
                   <p>Latitude: {city.lat}</p>
                   <p>Longitude: {city.lng}</p>
-                  <p>Time: {city.time.toString()}</p>
+                  <p>Time: {city.time.toLocaleTimeString()}</p>
                   <p>Temperature: {city.tmp}</p>
                 </Card>
               </Col>
@@ -72,8 +82,8 @@ class Weather extends React.Component {
           }
         </Row>
       </div>
-    );
+    )
   }
 }
 
-export default Weather;
+export default Weather
