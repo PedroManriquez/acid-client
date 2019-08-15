@@ -1,5 +1,5 @@
 import React from 'react'
-import { Divider, Row, Col, Card } from 'antd'
+import { Divider, Row, Col, Card, notification, Icon } from 'antd'
 import Axios from 'axios'
 import socketIO from 'socket.io-client'
 
@@ -10,26 +10,31 @@ class Weather extends React.Component {
       ws_url: 'http://localhost:3500',
       cities: []
     }
-    this.loadData = this.loadData.bind(this)
+    // this._loadData = this._loadData.bind(this)
   }
 
   componentDidMount() {
     const socket = socketIO(this.state.ws_url)
-    this.loadData() // load API data
+    this._loadData() // load API data
     socket.on('reload', message => {
       console.log('message from hell')
     })
   }
 
-  loadData() {
+  _loadData() {
     Axios.get('http://localhost:3500/cities')
       .then(response => {
         console.log(response)
         this.setState({ cities: response.data.body })
       })
       .catch(err => {
+        notification.open({
+          message: 'API Errors',
+          description: 'Ups! Somethings went wrong.',
+          icon: <Icon type="bug" theme="twoTone" twoToneColor="#eb2f96" />
+        })
         setTimeout(() => {
-          this.loadData()
+          this._loadData()
         }, 1000 * 2)
       })
   }
